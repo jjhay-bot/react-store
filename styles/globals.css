@@ -17,7 +17,10 @@ a {
 
 .centered {
   text-align: center;
-  display: grid;
-  place-items: center;
-  height: 100%;
+}
+
+.navOffset {
+  background-color: transparent;
+  height: 6rem;
+  width: 100%;
 }

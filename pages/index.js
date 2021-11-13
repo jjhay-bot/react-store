@@ -4,7 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function HomePage(props) {
   return (
-    <ProductPage />
+    <>
+      <ProductPage />
+    </>
+
   );
 }
 

@@ -3,3 +3,7 @@
   margin: 0;
   padding: 0;
 }
+
+.MuiTableContainer-root {
+  max-height:max-content ;
+}
