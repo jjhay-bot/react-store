@@ -7,13 +7,20 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import DUMMY_DATA from '../../pages/productpage/database';
-import ProductItem from './ProductItem';
-import { Container } from 'react-bootstrap';
+import DUMMY_DATA from "../../pages/productpage/database";
+import Button from '@mui/material/Button';
+
+const columns = [
+  { id: 'name', label: 'Name', minWidth: 170 },
+  { id: 'barcode', label: 'barcode', minWidth: 100 },
+  { id: 'price', label: 'price', minWidth: 100, format: (value) => value.toFixed(2) },
+  { id: 'brand', label: 'brand', minWidth: 100 },
+  { id: 'category', label: 'category', minWidth: 100 },
+];
 
 const rows = DUMMY_DATA
 
-export default function StickyHeadTable(props) {
+export default function StickyHeadTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -27,45 +34,51 @@ export default function StickyHeadTable(props) {
   };
 
   return (
-    <Container>
-      <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-        <TableContainer sx={{ maxHeight: 'auto' }}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead >
-              <tr >
-                <TableCell scope="col" sx={{ fontWeight: 'bold' }}>Name</TableCell>
-                <TableCell scope="col" sx={{ fontWeight: 'bold' }}>Barcode</TableCell>
-                <TableCell scope="col" sx={{ fontWeight: 'bold' }}>Price</TableCell>
-                <TableCell scope="col" sx={{ fontWeight: 'bold'}}>Brand</TableCell>
-                <TableCell scope="col" sx={{ fontWeight: 'bold' }}>Category</TableCell>
-                <TableCell scope="col" sx={{ fontWeight: 'bold' }}>Add to Cart</TableCell>
-              </tr>
-            </TableHead>
-            <TableBody >
-              {props.products.map((product) => (
-                <ProductItem
-                  key={product.id}
-                  id={product.id}
-                  name={product.name}
-                  barcode={product.barcode}
-                  price={product.price}
-                  brand={product.brand}
-                  category={product.category}
-                />        
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
-    </Container>
+    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+      <TableContainer sx={{ maxHeight: `calc(100vh - 10rem)` }}>
+        <Table stickyHeader aria-label="sticky table">
+          <TableHead>
+            <TableRow>
+              <TableCell scope="col" sx={{ fontWeight: 'bold' }}>Name</TableCell>
+              <TableCell scope="col" sx={{ fontWeight: 'bold' }}>Barcode</TableCell>
+              <TableCell scope="col" sx={{ fontWeight: 'bold' }}>Price</TableCell>
+              <TableCell scope="col" sx={{ fontWeight: 'bold'}}>Brand</TableCell>
+              <TableCell scope="col" sx={{ fontWeight: 'bold' }}>Category</TableCell>
+              <TableCell scope="col" sx={{ fontWeight: 'bold' }}>Add to Cart</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row) => {
+                return (
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                    {columns.map((column) => {
+                      const value = row[column.id];
+                      return (
+                        <TableCell key={column.id} align={column.align}>
+                          {column.format && typeof value === 'number'
+                            ? column.format(value)
+                            : value}
+                        </TableCell>
+                      );
+                    })}
+                    <Button variant="contained" color="success" onClick={e => console.log('ADDED TO CART')}>Add</Button>
+                  </TableRow>
+                );
+              })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[10, 25, 100]}
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+    </Paper>
   );
 }
