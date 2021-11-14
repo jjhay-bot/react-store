@@ -1,0 +1,32 @@
+.rounded_searchbar {
+  border: 1px solid;
+  border-radius: 2rem;
+  padding: 0 1rem;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  max-width: 700px;
+  width: 100%;
+  align-items: center;
+}
+
+.input {
+  border: transparent;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  outline-color: transparent;
+}
+
+.justify {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  position: fixed;
+  z-index: 5;
+  background-color: white;
+  padding: 6rem 0  1rem 0;
+  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(143, 136, 136, 0.06) 0px 2px 4px -1px; */
+}
+
+.icon {
+  height: 1.5rem;
+}

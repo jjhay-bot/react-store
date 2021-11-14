@@ -1,12 +1,11 @@
-import ProductList from "../../components/products/ProductList";
-import PaginatedItems from "../../components/ui/Pagination";
-import DUMMY_DATA from "../../pages/productpage/database";
-import SearchBar from '../../components/ui/SearchBar'
+import Products from "../../components/products/Products";
 
 function ProductPage(props) {
 
   return (
-    <ProductList products={DUMMY_DATA} />
+    <>
+      <Products />
+    </>
   );
 }
 
