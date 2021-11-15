@@ -37,33 +37,54 @@ function ProductAll(props) {
     setPage(0);
   };
 
-  const handleClear =() => {
-    setRowsPerPage(10);
-    setPage(0);
-  };
+
+  const sortbyname = () => {
+    setrows(props.products.sort((a, b) => a.name > b.name? 1 : -1))
+  }
+
+  const sortbarcode = () => {
+    setrows(props.products.sort((a, b) =>{return a.barcode > b.barcode? 1 : -1}))
+  }
 
   const sortbyprice = () => {
     setrows(props.products.sort((a, b) => a.price - b.price))
-    console.log(rows);
   }
+
+
+  const sortbybrand = () => {
+    setrows(props.products.sort((a, b) => a.brand > b.brand? 1 : -1))
+  }
+
+  const sortbycategory = () => {
+    setrows(props.products.sort((a, b) => a.category > b.category? 1 : -1))
+  }
+
 
   props.handleClear;
 
   return (
-    <Container sx={{paddingTop: '11rem', paddingBottom: '3rem',  }}>
+    <Container sx={{paddingTop: '11rem', paddingBottom: '0rem',  }}>
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-        <TableContainer sx={{ maxHeight: `100%` }}>
+        <TableContainer sx={{ maxHeight: `70vh` }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
-                <TableCell scope="col" sx={{ fontWeight: 'bold' }}>Name</TableCell>
-                <TableCell scope="col" sx={{ fontWeight: 'bold' }}>Barcode</TableCell>
                 <TableCell scope="col" sx={{ fontWeight: 'bold' }}>
-                  <button type='submit' onClick={sortbyprice}>Price</button>
+                  <button type='submit' onClick={sortbyname} className={classes.button}>Name</button>
                 </TableCell>
-                <TableCell scope="col" sx={{ fontWeight: 'bold' }}>Brand</TableCell>
-                <TableCell scope="col" sx={{ fontWeight: 'bold' }}>Category</TableCell>
-                <TableCell scope="col" sx={{ fontWeight: 'bold' }}>Add to Cart</TableCell>
+                <TableCell scope="col" sx={{ fontWeight: 'bold' }}>
+                  <button type='submit' onClick={sortbyname} className={classes.button}>Barcode</button>
+                </TableCell>
+                <TableCell scope="col" sx={{ fontWeight: 'bold' }}>
+                  <button type='submit' onClick={sortbyprice} className={classes.button}>Price</button>
+                </TableCell>
+                <TableCell scope="col" sx={{ fontWeight: 'bold' }}>
+                  <button type='submit' onClick={sortbyname} className={classes.button}>Brand</button>
+                </TableCell>
+                <TableCell scope="col" sx={{ fontWeight: 'bold' }}>
+                  <button type='submit' onClick={sortbyname} className={classes.button}>Category</button>
+                </TableCell>
+                <TableCell scope="col" sx={{ fontWeight: 'bold' }} >Add to Cart</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -83,7 +104,7 @@ function ProductAll(props) {
                         );
                       })}
                       <TableCell >
-                        <Button variant="contained" color="success" onClick={e => console.log('ADDED TO CART')}>Add</Button>
+                        <Button variant="contained" color="success" style={{backgroundColor:'#16caaf', }} onClick={e => console.log('ADDED TO CART')}>Add</Button>
                       </TableCell>
                     </TableRow>
                   );

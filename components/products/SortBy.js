@@ -15,7 +15,7 @@ function SortBy(props) {
   return (
     < >
       {/* {sortBrand} */}
-      <ProductAll products={DUMMY_DATA} >Price</ProductAll>
+      <ProductAll products={DUMMY_DATA} >Price2</ProductAll>
 
     </>
   );
