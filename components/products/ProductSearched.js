@@ -44,7 +44,7 @@ export default function SearchBar(props) {
         </Form>
       </div>
       
-      <ProductAll products={foundName}/>
+      <ProductAll products={foundName} onSearch={filter}/>
     </>
   );
 }

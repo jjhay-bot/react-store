@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useState, useRef, useContext } from 'react';
+import CartContext from "../store/cart-context";
+
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,7 +12,7 @@ import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
 import { Container } from '@mui/material';
 import classes from "./ProductAll.module.css";
-
+import AddItem from '../carts/AddItem';
 
 const columns = [
   { id: 'name', label: 'Name', minWidth: 170 },
@@ -20,13 +22,11 @@ const columns = [
   { id: 'category', label: 'category', minWidth: 100 },
 ];
 
-// let rows = props.products
-
 function ProductAll(props) {
+  const [rows, setrows] = useState(props.products)
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [rows, setrows] = useState(props.products)
-
+  const ctx = useContext(CartContext)
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -36,7 +36,6 @@ function ProductAll(props) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
 
   const sortbyname = () => {
     setrows(props.products.sort((a, b) => a.name > b.name? 1 : -1))
@@ -50,7 +49,6 @@ function ProductAll(props) {
     setrows(props.products.sort((a, b) => a.price - b.price))
   }
 
-
   const sortbybrand = () => {
     setrows(props.products.sort((a, b) => a.brand > b.brand? 1 : -1))
   }
@@ -59,32 +57,31 @@ function ProductAll(props) {
     setrows(props.products.sort((a, b) => a.category > b.category? 1 : -1))
   }
 
-
-  props.handleClear;
+  const cartRecord = []
 
   return (
-    <Container sx={{paddingTop: '11rem', paddingBottom: '0rem',  }}>
+    <Container sx={{paddingTop: '11rem', paddingBottom: '1rem',  }}>
       <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-        <TableContainer sx={{ maxHeight: `70vh` }}>
+        <TableContainer sx={{ maxHeight: `65vh` }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
                 <TableCell scope="col" sx={{ fontWeight: 'bold' }}>
                   <button type='submit' onClick={sortbyname} className={classes.button}>Name</button>
                 </TableCell>
-                <TableCell scope="col" sx={{ fontWeight: 'bold' }}>
+                <TableCell scope="col" sx={{ fontWeight: 'bold', width: '150px' }}>
                   <button type='submit' onClick={sortbyname} className={classes.button}>Barcode</button>
                 </TableCell>
-                <TableCell scope="col" sx={{ fontWeight: 'bold' }}>
+                <TableCell scope="col" sx={{ fontWeight: 'bold', width: '125px' }}>
                   <button type='submit' onClick={sortbyprice} className={classes.button}>Price</button>
                 </TableCell>
-                <TableCell scope="col" sx={{ fontWeight: 'bold' }}>
+                <TableCell scope="col" sx={{ fontWeight: 'bold', width: '125px' }}>
                   <button type='submit' onClick={sortbyname} className={classes.button}>Brand</button>
                 </TableCell>
-                <TableCell scope="col" sx={{ fontWeight: 'bold' }}>
+                <TableCell scope="col" sx={{ fontWeight: 'bold', width: '150px' }}>
                   <button type='submit' onClick={sortbyname} className={classes.button}>Category</button>
                 </TableCell>
-                <TableCell scope="col" sx={{ fontWeight: 'bold' }} >Add to Cart</TableCell>
+                <TableCell scope="col" sx={{ fontWeight: 'bold', width: '110px' }} >Add to Cart</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -94,17 +91,25 @@ function ProductAll(props) {
                   return (
                     <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                       {columns.map((column) => {
+                        
                         const value = row[column.id];
                         return (
+                          <>
                           <TableCell key={column.id} align={column.align}>
                             {column.format && typeof value === 'number'
                               ? column.format(value)
                               : value}
                           </TableCell>
+                          </>
                         );
+
                       })}
-                      <TableCell >
-                        <Button variant="contained" color="success" style={{backgroundColor:'#16caaf', }} onClick={e => console.log('ADDED TO CART')}>Add</Button>
+                      <TableCell>
+                        <AddItem 
+                          barcode={row.barcode}
+                          name={row.name}
+                          price={row.price}
+                        />
                       </TableCell>
                     </TableRow>
                   );

@@ -1,0 +1,8 @@
+.button_alt {
+  font: inherit;
+  cursor: pointer;
+  background-color: #16caaf;
+  padding: 0.5rem 2rem;
+  border-radius: 25px;
+  margin-left: 1rem;
+}

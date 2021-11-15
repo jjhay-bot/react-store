@@ -1,6 +1,6 @@
 .header {
   max-width: 1100px;
-  width: 100%;
+  width: 95%;
   margin: 0 ;
   height: 4rem;
   display: flex;
@@ -12,6 +12,8 @@
   box-shadow: 2.5px 2.5px 20px #b90f0f61;
   z-index: 10;
   /* left: 0; */
+  color: whitesmoke;
+  font-weight: bold;
 }
 
 .container {
@@ -20,13 +22,6 @@
   display: grid;
   place-items: center;
   width: 100%;
-}
-
-
-.logo {
-  font-size: 1.5rem;
-  color: white;
-  font-weight: bold;
 }
 
 .header ul {
@@ -38,7 +33,7 @@
 }
 
 .header li {
-  margin-left: 3rem;
+  margin-left: 1rem;
 }
 
 .header a {
@@ -59,4 +54,21 @@
   height: 6rem;
   width: 100%;
   left: 0;
+}
+
+.button {
+  font: inherit;
+  cursor: pointer;
+  background-color: #f1a787;
+  padding: 0.5rem 2rem;
+  border-radius: 25px;
+  margin-left: 1rem;
+}
+
+.button:hover {
+  background-color: #e76b37;
+}
+
+.badge {
+
 }

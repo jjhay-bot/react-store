@@ -4,7 +4,7 @@ import SortBy from "../../components/products/SortBy";
 function CartPage(props) {
   
   return (
-    <Cart />
+    <div />
   );
 }
 
