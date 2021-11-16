@@ -25,10 +25,11 @@
   top: 10vh;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .modal {
-    width: 40rem;
-    left: calc(50% - 20rem);
+    width: 95%;
+    left: 2.5%;
+    font-size: 1.25rem;
   }
 }
 

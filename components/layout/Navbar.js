@@ -8,10 +8,10 @@ function Navbar(props) {
       <Link className={classes.logo} href='/'>React Store</Link>
       <nav>
         <ul>
-          <li style={{width:'auto'}}>
-            <Link href='/products'>Products</Link>
+          <li className={classes.hideproduct} style={{width:'auto'}} >
+            <Link  href='/products'>Products</Link>
           </li>
-          <li style={{width:'8rem'}}>
+          <li style={{width:'5.5rem'}}>
             <button onClick={props.onShow} className={classes.button} >
               <span>CART </span>
             </button>

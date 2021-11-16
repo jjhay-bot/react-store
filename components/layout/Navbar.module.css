@@ -72,3 +72,9 @@
   padding: 1rem 1.25rem;
   margin-right: 0.25rem;
 }
+
+@media (max-width: 768px) {
+  .hideproduct {
+    display: none;
+  }
+}
