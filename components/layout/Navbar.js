@@ -11,10 +11,9 @@ function Navbar(props) {
           <li style={{width:'auto'}}>
             <Link href='/products'>Products</Link>
           </li>
-          <li >
-            <button onClick={props.onShow} className={classes.button}>
+          <li style={{width:'8rem'}}>
+            <button onClick={props.onShow} className={classes.button} >
               <span>CART </span>
-              <span className={classes.badge}>{5}</span>
             </button>
           </li>
         </ul>
