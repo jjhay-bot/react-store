@@ -22,7 +22,7 @@ const columns = [
   { id: 'category', label: 'category', minWidth: 100 },
 ];
 
-function ProductAll(props) {
+function Searched(props) {
   const [rows, setrows] = useState(props.products)
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -31,13 +31,38 @@ function ProductAll(props) {
     setPage(newPage);
   };
 
+  console.log(rows);
+
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
 
-  const cartRecord = []
+  const sortbyname = useCallback (() => {
+    setrows(props.products.sort((a, b) => a.name > b.name? 1 : -1))
+    setPage(0);
+  },[props.products])
 
+  const sortbarcode = useCallback (() => {
+    setrows(props.products.sort((a, b) =>{return a.barcode > b.barcode? 1 : -1}))
+    setPage(0);
+  },[props.products])
+
+  const sortbyprice = useCallback(() => {
+    setrows(props.products.sort((a, b) => a.price - b.price))
+    setPage(0);
+  },[props.products])
+
+  const sortbybrand = useCallback(() => {
+    setrows(props.products.sort((a, b) => a.brand > b.brand? 1 : -1))
+    setPage(0);
+  },[props.products])
+
+  const sortbycategory = useCallback(() => {
+    setrows(props.products.sort((a, b) => a.category > b.category? 1 : -1))
+  },[props.products])
+
+  const cartRecord = []
 
   return (
     <Container sx={{paddingTop: '11rem', paddingBottom: '1rem',  }}>
@@ -47,19 +72,19 @@ function ProductAll(props) {
             <TableHead>
               <TableRow>
                 <TableCell scope="col" sx={{ fontWeight: 'bold' }}>
-                  <button type='submit' onClick={props.sortbyname} className={classes.button}>Name</button>
+                  <button type='submit' onClick={sortbyname} className={classes.button}>Name</button>
                 </TableCell>
                 <TableCell scope="col" sx={{ fontWeight: 'bold', width: '150px' }}>
-                  <button type='submit' onClick={props.sortbyname} className={classes.button}>Barcode</button>
+                  <button type='submit' onClick={sortbyname} className={classes.button}>Barcode</button>
                 </TableCell>
                 <TableCell scope="col" sx={{ fontWeight: 'bold', width: '125px' }}>
-                  <button type='submit' onClick={props.sortbyprice} className={classes.button}>Price</button>
+                  <button type='submit' onClick={sortbyprice} className={classes.button}>Price</button>
                 </TableCell>
                 <TableCell scope="col" sx={{ fontWeight: 'bold', width: '125px' }}>
-                  <button type='submit' onClick={props.sortbyname} className={classes.button}>Brand</button>
+                  <button type='submit' onClick={sortbyname} className={classes.button}>Brand</button>
                 </TableCell>
                 <TableCell scope="col" sx={{ fontWeight: 'bold', width: '150px' }}>
-                  <button type='submit' onClick={props.sortbyname} className={classes.button}>Category</button>
+                  <button type='submit' onClick={sortbyname} className={classes.button}>Category</button>
                 </TableCell>
                 <TableCell scope="col" sx={{ fontWeight: 'bold', width: '110px' }} >Add to Cart</TableCell>
               </TableRow>
@@ -111,4 +136,4 @@ function ProductAll(props) {
   );
 }
 
-export default ProductAll;
+export default Searched;

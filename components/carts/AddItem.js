@@ -5,7 +5,7 @@ function AddItem(props) {
 
   const addToCartHandler = async () => {
     const url = 'https://store-1064b-default-rtdb.asia-southeast1.firebasedatabase.app/cart.json'
-    const addedItem = { name: props.name, price: props.price }
+    const addedItem = { name: props.name, price: props.price, amount: +1 }
     console.log(props.identifier);
 
     axios.post(url, addedItem)

@@ -2,8 +2,8 @@
 // import Card from '../ui/Card';
 // import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
+import AddItem from '../carts/AddItem';
 // import Button from '@mui/material/Button';
-
 
 function ProductItem(props) {
 

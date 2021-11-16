@@ -1,5 +1,5 @@
 import Modal from '../ui/Modal';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { ClassNames } from '@emotion/react';
 import classes from './Cart.module.css'
 import axios from 'axios';
@@ -8,6 +8,7 @@ import CartItem from "./CartItem";
 
 function Cart(props) {
   const [cartItem, setcartItem] = useState([])
+  const cartCtx = useContext(CartContext);
 
   useEffect(() => {
     axios.get('https://store-1064b-default-rtdb.asia-southeast1.firebasedatabase.app/cart.json')
@@ -26,18 +27,21 @@ function Cart(props) {
   }, [])
 
 
+
   return (
     <>
       <Modal onClose={props.onCloseCart}>
-        {/* {cartItems} */}
         {cartItem.flatMap((item) => (
-          <ul>
-            <CartItem
-              name={item['name']}
-              price={item['price']}
-            />
-          </ul>
-        ))}
+        <ul>
+          <CartItem
+            key={item.id}
+            name={item['name']}
+            price={item['price']}
+            amount={item['amount']}
+            // onRemove={cartItemRemoveHandler.bind(null, item.id)}
+          />
+        </ul>
+      ))}
         <button onClick={props.onCloseCart} className={classes.button_alt}>
           Close
         </button>
