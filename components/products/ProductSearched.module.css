@@ -64,6 +64,7 @@
   border: transparent;
   font-weight: bold;
   cursor: pointer;
+  padding-top: 1rem;
 }
 
 @media (max-width: 640px) {

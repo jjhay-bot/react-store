@@ -95,7 +95,6 @@ function ProductAll(props) {
                             </TableCell>
                             </>
                           );
-
                         })}
                         <TableCell>
                           <AddItem 

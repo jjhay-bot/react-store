@@ -43,30 +43,64 @@ function SearchBar(props) {
         }
         setName(keyword);
     };
+
+    // if (foundName === '') {
+    //   setFoundName(results);
+    // }
+    
    
     const sortbyname = useCallback (() => {
-      setrows(foundName.sort((a, b) => a.name > b.name? 1 : -1))
-      setPage(0);
-    },[foundName])
+      setFoundName(foundName.sort((a, b) => a.name > b.name? 1 : -1))
+      if (page === 0) {
+        setPage(1);
+      } else {
+        setPage(0);
+      }
+      console.log('sortbyname');
+    },[foundName, page])
   
-    const sortbarcode = useCallback (() => {
-      setrows(foundName.sort((a, b) =>{return a.barcode > b.barcode? 1 : -1}))
+    const sortbybarcode = useCallback (() => {
+      setFoundName(foundName.sort((a, b) =>{return a.barcode > b.barcode? 1 : -1}))
       setPage(0);
-    },[foundName])
+      if (page === 0) {
+        setPage(1);
+      } else {
+        setPage(0);
+      }
+      console.log('sortbarcode');
+    },[foundName, page])
   
     const sortbyprice = useCallback(() => {
-      setrows(foundName.sort((a, b) => a.price - b.price))
-      setPage(0);
-    },[foundName])
-  
+      setFoundName(foundName.sort((a, b) => a.price - b.price))
+      console.log('sortbyprice');
+      if (page === 0) {
+        setPage(1);
+      } else {
+        setPage(0);
+      }
+    },[foundName, page])
+
     const sortbybrand = useCallback(() => {
-      setrows(foundName.sort((a, b) => a.brand > b.brand? 1 : -1))
+      setFoundName(foundName.sort((a, b) => a.brand > b.brand? 1 : -1))
       setPage(0);
-    },[foundName])
+      console.log('sortbybrand');
+      if (page === 0) {
+        setPage(1);
+      } else {
+        setPage(0);
+      }
+    },[foundName, page])
   
     const sortbycategory = useCallback(() => {
-      setrows(foundName.sort((a, b) => a.category > b.category? 1 : -1))
-    },[foundName])
+      setFoundName(foundName.sort((a, b) => a.category > b.category? 1 : -1))
+      setPage(0);
+      console.log('sortbycategory');
+      if (page === 0) {
+        setPage(1);
+      } else {
+        setPage(0);
+      }
+    },[foundName, page])
 
     const handleChangePage = (event, newPage) => {
       setPage(newPage);
@@ -76,7 +110,7 @@ function SearchBar(props) {
       setRowsPerPage(+event.target.value);
       setPage(0);
     };
-
+    
     if (foundName) {
       const columns = [
         { id: 'name', label: 'Name', minWidth: 170 },
@@ -85,6 +119,7 @@ function SearchBar(props) {
         { id: 'brand', label: 'brand', minWidth: 100 },
         { id: 'category', label: 'category', minWidth: 100 },
       ];
+
       const datatable = (
         <Container className={classes.tabledata} style={{padding:'1rem', paddingTop: '7.5rem'}}>
           <Paper sx={{ width: '100%', overflow: 'hidden', maxWidth: "1100px", position: 'absolute' }}>
@@ -93,19 +128,19 @@ function SearchBar(props) {
                 <TableHead >
                   <TableRow>
                     <TableCell scope="col" sx={{ fontWeight: 'bold', padding: '1rem'}}>
-                      <button type='submit' onClick={props.sortbyname} className={classes.button1} sx={{width:"100%", marginLeft: '-12.5px'}}>Name</button>
+                      <button type='submit' onClick={sortbyname} className={classes.button1} sx={{width:"100%", marginLeft: '-12.5px'}}>Name  <img width='16px' height='20px' src="https://img.icons8.com/material-outlined/24/000000/sort.png"/></button>
                     </TableCell>
                     <TableCell scope="col" sx={{ fontWeight: 'bold', width: '150px' }}>
-                      <button type='submit' onClick={props.sortbyname} className={classes.button}>Barcode</button>
+                      <button type='submit' onClick={sortbybarcode} className={classes.button}>Barcode  <img width='16px' height='20px' src="https://img.icons8.com/material-outlined/24/000000/sort.png"/></button>
                     </TableCell>
                     <TableCell scope="col" sx={{ fontWeight: 'bold', width: '125px' }}>
-                      <button type='submit' onClick={props.sortbyprice} className={classes.button}>Price</button>
+                      <button type='submit' onClick={sortbyprice} className={classes.button}>Price  <img width='16px' height='20px' src="https://img.icons8.com/material-outlined/24/000000/sort.png"/></button>
                     </TableCell>
                     <TableCell scope="col" sx={{ fontWeight: 'bold', width: '125px' }}>
-                      <button type='submit' onClick={props.sortbyname} className={classes.button}>Brand</button>
+                      <button type='submit' onClick={sortbybrand} className={classes.button}>Brand  <img width='16px' height='20px' src="https://img.icons8.com/material-outlined/24/000000/sort.png"/></button>
                     </TableCell>
                     <TableCell scope="col" sx={{ fontWeight: 'bold', width: '150px' }}>
-                      <button type='submit' onClick={props.sortbyname} className={classes.button}>Category</button>
+                      <button type='submit' onClick={sortbycategory} className={classes.button}>Category  <img width='16px' height='20px' src="https://img.icons8.com/material-outlined/24/000000/sort.png"/></button>
                     </TableCell>
                     <TableCell scope="col" sx={{ fontWeight: 'bold', width: '110px' }} >
                       <button  className={classes.button} style={{ cursor: 'initial'}} >Add to Cart</button>
@@ -156,7 +191,7 @@ function SearchBar(props) {
         </Container>
       )
     }
-    
+
   return (
     <>  
       <div className={classes.justify}>
@@ -174,17 +209,16 @@ function SearchBar(props) {
         {foundName && datatable} 
       </div>
 
-
       {!foundName && <ProductAll 
         foundName={foundName} 
         products={props.products} 
         onSearch={filter} 
         onChange={filter} 
-        sortbyname={sortbyname}
-        sortbarcode={sortbarcode}
-        sortbyprice={sortbyprice}
-        sortbybrand={sortbybrand}
-        sortbycategory={sortbycategory}
+        // sortbyname={sortbyname}
+        // sortbarcode={sortbybarcode}
+        // sortbyprice={sortbyprice}
+        // sortbybrand={sortbybrand}
+        // sortbycategory={sortbycategory}
       />}
     </>
   );
