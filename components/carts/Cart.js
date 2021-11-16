@@ -23,21 +23,31 @@ function Cart(props) {
     })
   }, [])
 
-  console.log();
+
+  const cartContent = (cartItem.length === 0) ?
+    <h4 className={classes['cart-item']}>Your cart is empty!</h4> :
+    cartItem.flatMap((item) => (
+      <ul>
+        <CartItem
+          key={item.id}
+          name={item['name']}
+          price={item['price']}
+          amount={item['amount']}
+        />
+      </ul>
+    ))
+
+    console.log(cartContent);
+    
+
+
+
+
 
   return (
     <>
       <Modal onClose={props.onCloseCart}>
-        {cartItem.flatMap((item) => (
-        <ul>
-          <CartItem
-            key={item.id}
-            name={item['name']}
-            price={item['price']}
-            amount={item['amount']}
-          />
-        </ul>
-      ))}
+        {cartContent}
         <button onClick={props.onCloseCart} className={classes.button_alt}>
           Close
         </button>
