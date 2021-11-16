@@ -24,7 +24,7 @@ const CartItem = (props) => {
   return (
     <li className={classes['cart-item']}>
       <div>
-        <h4 className={classes.item}>{props.name}</h4>
+        <h5 className={classes.item}>{props.name}</h5>
         <div className={classes.summary}>
           <span className={classes.price}>₱{props.price}</span>
           <span className={classes.amount}>x {amount}</span>
@@ -32,8 +32,8 @@ const CartItem = (props) => {
       </div>
 
       <div className={classes.actions}>
-        <button onClick={removeItem}>−</button>
-        <button onClick={addItem}>+</button>
+        <button className={classes.price} onClick={removeItem}>−</button>
+        <button className={classes.price} onClick={addItem}>+</button>
       </div>
     </li>
   );

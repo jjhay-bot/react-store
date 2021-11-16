@@ -2,7 +2,7 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useCallback, useRef, useState } from 'react';
-import { Container, Offcanvas, Nav, NavDropdown, Form, FormControl, Button, Table } from 'react-bootstrap';
+import { Container, Form, FormControl, Table } from 'react-bootstrap';
 import classes from "./ProductSearched.module.css";
 import ProductAll from "./ProductAll";
 
@@ -86,75 +86,76 @@ function SearchBar(props) {
         { id: 'category', label: 'category', minWidth: 100 },
       ];
       const datatable = (
-        <Container sx={{paddingTop: '11rem', paddingBottom: '1rem',  }}>
-        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-          <TableContainer sx={{ maxHeight: `65vh` }}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  <TableCell scope="col" sx={{ fontWeight: 'bold' }}>
-                    <button type='submit' onClick={sortbyname} className={classes.button}>Name</button>
-                  </TableCell>
-                  <TableCell scope="col" sx={{ fontWeight: 'bold', width: '150px' }}>
-                    <button type='submit' onClick={sortbyname} className={classes.button}>Barcode</button>
-                  </TableCell>
-                  <TableCell scope="col" sx={{ fontWeight: 'bold', width: '125px' }}>
-                    <button type='submit' onClick={sortbyprice} className={classes.button}>Price</button>
-                  </TableCell>
-                  <TableCell scope="col" sx={{ fontWeight: 'bold', width: '125px' }}>
-                    <button type='submit' onClick={sortbyname} className={classes.button}>Brand</button>
-                  </TableCell>
-                  <TableCell scope="col" sx={{ fontWeight: 'bold', width: '150px' }}>
-                    <button type='submit' onClick={sortbyname} className={classes.button}>Category</button>
-                  </TableCell>
-                  <TableCell scope="col" sx={{ fontWeight: 'bold', width: '110px' }} >Add to Cart</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {foundName
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
-                  return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                      {columns.map((column) => {
-                        const value = row[column.id];
-                        return (
-                          <>
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === 'number'
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                          </>
-                        );
-                      })}
-                      <TableCell>
-                        <AddItem 
-                          barcode={row.barcode}
-                          name={row.name}
-                          price={row.price}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={foundName.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Paper>
-      </Container>
+        <Container className={classes.tabledata} style={{padding:'1rem', paddingTop: '7.5rem'}}>
+          <Paper sx={{ width: '100%', overflow: 'hidden', maxWidth: "1100px", position: 'absolute' }}>
+            <TableContainer sx={{ maxHeight: `65vh` }}>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead >
+                  <TableRow>
+                    <TableCell scope="col" sx={{ fontWeight: 'bold', padding: '1rem'}}>
+                      <button type='submit' onClick={props.sortbyname} className={classes.button1} sx={{width:"100%", marginLeft: '-12.5px'}}>Name</button>
+                    </TableCell>
+                    <TableCell scope="col" sx={{ fontWeight: 'bold', width: '150px' }}>
+                      <button type='submit' onClick={props.sortbyname} className={classes.button}>Barcode</button>
+                    </TableCell>
+                    <TableCell scope="col" sx={{ fontWeight: 'bold', width: '125px' }}>
+                      <button type='submit' onClick={props.sortbyprice} className={classes.button}>Price</button>
+                    </TableCell>
+                    <TableCell scope="col" sx={{ fontWeight: 'bold', width: '125px' }}>
+                      <button type='submit' onClick={props.sortbyname} className={classes.button}>Brand</button>
+                    </TableCell>
+                    <TableCell scope="col" sx={{ fontWeight: 'bold', width: '150px' }}>
+                      <button type='submit' onClick={props.sortbyname} className={classes.button}>Category</button>
+                    </TableCell>
+                    <TableCell scope="col" sx={{ fontWeight: 'bold', width: '110px' }} >
+                      <button  className={classes.button} style={{ cursor: 'initial'}} >Add to Cart</button>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {foundName
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row) => {
+                    return (
+                      <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                        {columns.map((column) => {
+                          const value = row[column.id];
+                          return (
+                            <>
+                            <TableCell key={column.id} align={column.align}>
+                              {column.format && typeof value === 'number'
+                                ? column.format(value)
+                                : value}
+                            </TableCell>
+                            </>
+                          );
+                        })}
+                        <TableCell>
+                          <AddItem 
+                            barcode={row.barcode}
+                            name={row.name}
+                            price={row.price}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[10, 25, 100]}
+              component="div"
+              count={foundName.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Paper>
+        </Container>
       )
     }
-  
     
   return (
     <>  
@@ -170,13 +171,11 @@ function SearchBar(props) {
               className={classes.input}
           />
         </Form>
+        {foundName && datatable} 
       </div>
 
-      {foundName && datatable} 
 
-
-    {/* 
-      <ProductAll 
+      {!foundName && <ProductAll 
         foundName={foundName} 
         products={props.products} 
         onSearch={filter} 
@@ -186,7 +185,7 @@ function SearchBar(props) {
         sortbyprice={sortbyprice}
         sortbybrand={sortbybrand}
         sortbycategory={sortbycategory}
-      /> */}
+      />}
     </>
   );
 }

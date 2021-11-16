@@ -4,7 +4,7 @@ import Products from "../../components/products/Products";
 import Navbar from "../../components/layout/Navbar";
 import CartProvider from '../../components/store/CartProvider';
 import DUMMY_DATA from "../../components/products/database";
-
+import Head from "next/head";
 
 function ProductPage(props) {
   const [cartIsShown, setCartIsShown] = useState(false);
@@ -18,11 +18,20 @@ function ProductPage(props) {
   };
 
   return (
-    <CartProvider>
+    <>
+      <Head>
+        <title>React Products</title>
+        <meta 
+          name="description"
+          content="Every products you need is available online!"
+        />
+      </Head>
+      <CartProvider>
       <Navbar onShow={showCartHandler} />
       <Products products={DUMMY_DATA}/>
       {cartIsShown && <Cart onCloseCart={hideCartHandler} />}
     </CartProvider>
+    </>
   );
 }
 

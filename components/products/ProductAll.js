@@ -11,8 +11,9 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
 import { Container } from '@mui/material';
-import classes from "./ProductAll.module.css";
 import AddItem from '../carts/AddItem';
+import classes from "./ProductAll.module.css";
+
 
 const columns = [
   { id: 'name', label: 'Name', minWidth: 170 },
@@ -39,75 +40,88 @@ function ProductAll(props) {
   const cartRecord = []
 
 
-  return (
-    <Container sx={{paddingTop: '11rem', paddingBottom: '1rem',  }}>
-      <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-        <TableContainer sx={{ maxHeight: `65vh` }}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                <TableCell scope="col" sx={{ fontWeight: 'bold' }}>
-                  <button type='submit' onClick={props.sortbyname} className={classes.button}>Name</button>
-                </TableCell>
-                <TableCell scope="col" sx={{ fontWeight: 'bold', width: '150px' }}>
-                  <button type='submit' onClick={props.sortbyname} className={classes.button}>Barcode</button>
-                </TableCell>
-                <TableCell scope="col" sx={{ fontWeight: 'bold', width: '125px' }}>
-                  <button type='submit' onClick={props.sortbyprice} className={classes.button}>Price</button>
-                </TableCell>
-                <TableCell scope="col" sx={{ fontWeight: 'bold', width: '125px' }}>
-                  <button type='submit' onClick={props.sortbyname} className={classes.button}>Brand</button>
-                </TableCell>
-                <TableCell scope="col" sx={{ fontWeight: 'bold', width: '150px' }}>
-                  <button type='submit' onClick={props.sortbyname} className={classes.button}>Category</button>
-                </TableCell>
-                <TableCell scope="col" sx={{ fontWeight: 'bold', width: '110px' }} >Add to Cart</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
-                  return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                      {columns.map((column) => {
-                        
-                        const value = row[column.id];
-                        return (
-                          <>
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === 'number'
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                          </>
-                        );
 
-                      })}
-                      <TableCell>
-                        <AddItem 
-                          barcode={row.barcode}
-                          name={row.name}
-                          price={row.price}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
-    </Container>
+  // .tabledata {
+  //   display: flex;
+  //   justify-content: center;
+  //   width: 100vw;
+  //   position: fixed;
+  //   z-index: 5;
+  //   background-color: transparent;
+  //   padding: 6rem 0  1rem 0;
+  // }
+
+  return (
+    <>
+      <Container sx={{paddingTop: '11rem', paddingBottom: '3rem', height: '100vh', width: '100vw' }}>
+        <Paper sx={{ width: '95%', overflow: 'hidden', marginLeft: '2.5%' }}>
+          <TableContainer sx={{ maxHeight: `65vh` }}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  <TableCell scope="col" sx={{ fontWeight: 'bold' }}>
+                    <button type='submit' onClick={props.sortbyname} className={classes.button}>Name</button>
+                  </TableCell>
+                  <TableCell scope="col" sx={{ fontWeight: 'bold', width: '150px' }}>
+                    <button type='submit' onClick={props.sortbyname} className={classes.button}>Barcode</button>
+                  </TableCell>
+                  <TableCell scope="col" sx={{ fontWeight: 'bold', width: '125px' }}>
+                    <button type='submit' onClick={props.sortbyprice} className={classes.button}>Price</button>
+                  </TableCell>
+                  <TableCell scope="col" sx={{ fontWeight: 'bold', width: '125px' }}>
+                    <button type='submit' onClick={props.sortbyname} className={classes.button}>Brand</button>
+                  </TableCell>
+                  <TableCell scope="col" sx={{ fontWeight: 'bold', width: '150px' }}>
+                    <button type='submit' onClick={props.sortbyname} className={classes.button}>Category</button>
+                  </TableCell>
+                  <TableCell scope="col" sx={{ fontWeight: 'bold', width: '110px' }} >Add to Cart</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row) => {
+                    return (
+                      <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                        {columns.map((column) => {
+                          
+                          const value = row[column.id];
+                          return (
+                            <>
+                            <TableCell key={column.id} align={column.align}>
+                              {column.format && typeof value === 'number'
+                                ? column.format(value)
+                                : value}
+                            </TableCell>
+                            </>
+                          );
+
+                        })}
+                        <TableCell>
+                          <AddItem 
+                            barcode={row.barcode}
+                            name={row.name}
+                            price={row.price}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 100]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+      </Container>
+    </>
   );
 }
 

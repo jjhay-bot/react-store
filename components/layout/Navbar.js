@@ -1,11 +1,5 @@
 import classes from './Navbar.module.css';
 import Link from 'next/link'
-import ProductSearched from '../products/ProductSearched';
-import DUMMY_DATA from "../products/database";
-import ProductList from '../products/ProductAll'
-import { Container } from '@mui/material';
-import CartIcon from './CartIcon';
-
 
 function Navbar(props) {
   return (
@@ -15,11 +9,8 @@ function Navbar(props) {
       <nav>
         <ul>
           <li style={{width:'auto'}}>
-            <Link href='/'>Products</Link>
+            <Link href='/products'>Products</Link>
           </li>
-          {/* <li style={{width:'30px'}}> 
-            <Link href='/cartpage'>Cart</Link>
-          </li> */}
           <li >
             <button onClick={props.onShow} className={classes.button}>
               <span>CART </span>

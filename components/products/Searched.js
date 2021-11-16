@@ -9,7 +9,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import Button from '@mui/material/Button';
 import { Container } from '@mui/material';
 import classes from "./ProductAll.module.css";
 import AddItem from '../carts/AddItem';
@@ -107,7 +106,6 @@ function Searched(props) {
                           </TableCell>
                           </>
                         );
-
                       })}
                       <TableCell>
                         <AddItem 

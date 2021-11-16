@@ -7,6 +7,8 @@
   max-width: 700px;
   width: 100%;
   align-items: center;
+  z-index: 100;
+
 }
 
 .input {
@@ -20,13 +22,46 @@
   display: grid;
   place-items: center;
   width: 100%;
-  position: fixed;
+  position: absolute;
   z-index: 5;
   background-color: white;
   padding: 6rem 0  1rem 0;
-  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(143, 136, 136, 0.06) 0px 2px 4px -1px; */
 }
 
-.icon {
+/* .icon {
   height: 1.5rem;
+} */
+
+
+.tabledata {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  position: fixed;
+  z-index: 5;
+  background-color: transparent;
+  padding: 7.5rem 0  1rem 0;
+}
+
+.button {
+  background: transparent;
+  border: transparent;
+  font-weight: bold;
+  position: inherit;
+  cursor: pointer;
+  background: white;
+  width: inherit;
+  height: 3rem;
+  top: -1px;
+  height: 3.5rem;
+  padding-top: 1rem;
+  text-align: left;
+  z-index: 1;
+}
+
+.button1 {
+  background: transparent;
+  border: transparent;
+  font-weight: bold;
+  cursor: pointer;
 }
